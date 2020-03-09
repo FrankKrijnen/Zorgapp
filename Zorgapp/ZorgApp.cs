@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zorgapp
 {
@@ -11,7 +8,7 @@ namespace Zorgapp
         //fields and properties
         private Profile profile;
         private List<Medicine> medicineList;
-        private List<WeightMeasurePoint> weightMeasurePointData;
+        private List<WeightMeasurePoint> weightMeasurePointList;
 
         //constructor
         public ZorgApp() 
@@ -19,7 +16,7 @@ namespace Zorgapp
             //initialize class object and lists
             profile = new Profile();
             medicineList = new List<Medicine>();
-            weightMeasurePointData = new List<WeightMeasurePoint>();
+            weightMeasurePointList = new List<WeightMeasurePoint>();
 
             //call startup methods
             AddStartData();
@@ -31,9 +28,17 @@ namespace Zorgapp
         //methods
         //ViewData: all data?
         public void ViewData() { }
-        private void GetWeightGraph() 
-        { 
-            
+        private string GetWeightGraph() 
+        {
+            string weightMeasurePointReturn = string.Empty;
+            foreach (WeightMeasurePoint weightMeasurePoint in weightMeasurePointList)
+            {
+                weightMeasurePointReturn +=
+                    $"\nDatum: {weightMeasurePoint.GetDate()}\n" +
+                    $"Tijd: {weightMeasurePoint.GetTime()}\n" +
+                    $"Gewicht: {weightMeasurePoint.GetWeight()} Kilogram\n";
+            }
+            return weightMeasurePointReturn;
         }
 
         //Add static data to ZorgApp
@@ -58,9 +63,9 @@ namespace Zorgapp
                 "Dit soort (Diclofenac) pijnstillers wordt ook wel NSAID's genoemd.",
                 "1 tablet per 6 uur."));
 
-            //Add WeightMeasurePoint Data to list as an new object
-            weightMeasurePointData.Add(new WeightMeasurePoint("20-04-2010", "19:40", 65.55));
-            weightMeasurePointData.Add(new WeightMeasurePoint("22-02-2011", "18:35", 63.10));
+            //Add WeightMeasurePoint Data to list as a new object
+            weightMeasurePointList.Add(new WeightMeasurePoint("20-04-2010", "19:40", 65.55));
+            weightMeasurePointList.Add(new WeightMeasurePoint("22-02-2011", "18:35", 63.11));
         }
 
         //Display menu with numbers to choose from
@@ -89,7 +94,7 @@ namespace Zorgapp
                         Console.ReadKey();
                         break;
                     case "3":
-                        Console.WriteLine("Nummer nog niet werkent! Probeer het later nog een keer..");
+                        Console.WriteLine(GetWeightGraph());
                         Console.ReadKey();
                         break;
                     default:
