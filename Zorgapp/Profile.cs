@@ -45,6 +45,9 @@ namespace Zorgapp
         public int GetAge() { return age; }
         public double GetWeight() { return weight; }
         public double GetLength() { return length; }
-        public string GetBmi() { return string.Empty; }
+        public string GetBmi() 
+        {
+            return Convert.ToString(GetWeight() / Math.Pow((int)GetLength(), 2)); 
+        }
     }
 }

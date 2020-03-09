@@ -8,8 +8,16 @@
         private string sort;
         private string dosage;
 
-        //constructor
+        //constructor with 1 overload
         public Medicine() { }
+
+        public Medicine(string medicineName, string description, string sort, string dosage) 
+        {
+            SetMedicineName(medicineName);
+            SetDescription(description);
+            SetSort(sort);
+            SetDosage(dosage);
+        }
 
         //methods
         //setters
