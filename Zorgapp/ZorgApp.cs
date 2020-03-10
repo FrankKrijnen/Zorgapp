@@ -28,30 +28,20 @@ namespace Zorgapp
         //methods
         //ViewData: all data?
         public void ViewData() { }
-        private string GetWeightGraph() 
-        {
-            string weightMeasurePointReturn = string.Empty;
-            foreach (WeightMeasurePoint weightMeasurePoint in weightMeasurePointList)
-            {
-                weightMeasurePointReturn +=
-                    $"\nDatum: {weightMeasurePoint.GetDate()}\n" +
-                    $"Tijd: {weightMeasurePoint.GetTime()}\n" +
-                    $"Gewicht: {weightMeasurePoint.GetWeight()} Kilogram\n";
-            }
-            return weightMeasurePointReturn;
-        }
 
-        //Add static data to ZorgApp
+        
+
+        //add static data to ZorgApp
         private void AddStartData()
         {
-            //Add Profile Data
+            //add Profile data through profile setters
             profile.SetFirstName("Kees");
             profile.SetLastName("Straaten");
             profile.SetAge(34);
             profile.SetWeight(68.5);
             profile.SetLength(1.81);
 
-            //Add Medicine Data to list as an new object
+            //add Medicine data to list as a new initialized object
             medicineList.Add(new Medicine(
                 "Oxazepam",
                 "Het werkt rustgevend, spierontspannend, vermindert angstgevoelens en beïnvloedt de overdracht van elektrische prikkels in de hersenen.",
@@ -63,18 +53,18 @@ namespace Zorgapp
                 "Dit soort (Diclofenac) pijnstillers wordt ook wel NSAID's genoemd.",
                 "1 tablet per 6 uur."));
 
-            //Add WeightMeasurePoint Data to list as a new object
+            //add WeightMeasurePoint data to list as a new initialized object
             weightMeasurePointList.Add(new WeightMeasurePoint("20-04-2010", "19:40", 65.55));
             weightMeasurePointList.Add(new WeightMeasurePoint("22-02-2011", "18:35", 63.11));
         }
 
-        //Display menu with numbers to choose from
+        //display menu with numbers to choose from
         private void DisplayMenu() 
         {
             //keep the menu running
             while (true)
             {
-                //show options with assigned numbers
+                //clear the console screen and show options with assigned numbers
                 Console.Clear();
                 Console.WriteLine($"Datum: {DateTime.Now}\nWelkom in het menu");
                 Console.WriteLine("\nKies een nummer: " +
@@ -85,18 +75,25 @@ namespace Zorgapp
                 //call method depended on chosen number
                 switch (Console.ReadLine())
                 {
+                    //1: get readable string of profile with ShowProfile and print to console
                     case "1":
                         Console.WriteLine(ShowProfile());
                         Console.ReadKey();
                         break;
+
+                    //2: get readable string of medicineList with ShowMedicineList and print to console
                     case "2":
-                        Console.WriteLine(ShowMedicine());
+                        Console.WriteLine(ShowMedicineList());
                         Console.ReadKey();
                         break;
+
+                    //3: get readable string of weightMeasurePointList with GetWeightGraph and print to console
                     case "3":
                         Console.WriteLine(GetWeightGraph());
                         Console.ReadKey();
                         break;
+
+                    //else: print error message to console and return to main menu
                     default:
                         Console.WriteLine("Nummer niet herkent! Probeer nogmaals..");
                         Console.ReadKey();
@@ -104,8 +101,11 @@ namespace Zorgapp
                 }
             }
         }
+
+        //show profile with field variable profile calls
         private string ShowProfile() 
         {
+            //return concatanated string
             return 
                 $"\nVoornaam: {profile.GetFirstName()}\n" +
                 $"Achternaam: {profile.GetLastName()}\n" +
@@ -115,20 +115,41 @@ namespace Zorgapp
                 $"BMI: {profile.GetBmi()}";
         }
 
-        private string ShowMedicine() 
+        //show medicine list with loop variable medicine calls in foreachloop
+        private string ShowMedicineList() 
         {
-            string medicineListReturn = string.Empty;
+            //initialize local string to concatanate to
+            string medicineListAsString = string.Empty;
+            //loop through field variable medicineList
             foreach (Medicine medicine in medicineList)
             {
-
-                medicineListReturn += 
+                //concatanate to local string
+                medicineListAsString += 
                     $"\nMedicijnnaam: {medicine.GetMedicineName()}\n" +
                     $"Beschrijving: {medicine.GetDescription()}\n" +
                     $"Soort: {medicine.GetSort()}\n" +
                     $"Dosering: {medicine.GetDosage()}\n";
             }
-            
-            return medicineListReturn;
+            //return local string
+            return medicineListAsString;
+        }
+
+        //show data table with loop variable weightMeasurePoint calls in foreachloop
+        private string GetWeightGraph()
+        {
+            //initialize local string to concatanate to
+            string weightMeasurePointAsString = string.Empty;
+            //loop through field variable weightMeasurePointList
+            foreach (WeightMeasurePoint weightMeasurePoint in weightMeasurePointList)
+            {
+                //concatanate to local string
+                weightMeasurePointAsString +=
+                    $"\nDatum: {weightMeasurePoint.GetDate()}\n" +
+                    $"Tijd: {weightMeasurePoint.GetTime()}\n" +
+                    $"Gewicht: {weightMeasurePoint.GetWeight()} Kilogram\n";
+            }
+            //return local string
+            return weightMeasurePointAsString;
         }
     }
 }

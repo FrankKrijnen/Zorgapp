@@ -41,8 +41,12 @@ namespace Zorgapp
         public int GetAge() { return age; }
         public double GetWeight() { return weight; }
         public double GetLength() { return length; }
+
+        //GetBmi calculates the bmi  
         public string GetBmi() 
         {
+            //return weight divided by length to the power of two.
+            //(weight / (length^2))
             return Convert.ToString(GetWeight() / Math.Pow((int)GetLength(), 2)); 
         }
     }
