@@ -11,7 +11,7 @@ namespace Zorgapp
         private List<WeightMeasurePoint> weightMeasurePointList;
 
         //constructor
-        public ZorgApp() 
+        public ZorgApp()
         {
             //initialize class object and lists
             profile = new Profile();
@@ -23,13 +23,13 @@ namespace Zorgapp
             DisplayMenu();
         }
 
-        
+
 
         //methods
         //ViewData: all data?
         public void ViewData() { }
 
-        
+
 
         //add static data to ZorgApp
         private void AddStartData()
@@ -59,7 +59,7 @@ namespace Zorgapp
         }
 
         //display menu with numbers to choose from
-        private void DisplayMenu() 
+        private void DisplayMenu()
         {
             //keep the menu running
             while (true)
@@ -69,8 +69,12 @@ namespace Zorgapp
                 Console.WriteLine($"Datum: {DateTime.Now}\nWelkom in het menu");
                 Console.WriteLine("\nKies een nummer: " +
                     "\n1) Profiel tonen." +
-                    "\n2) Medicijn tonen." +
-                    "\n3) Gewicht Grafiek tonen.");
+                    "\n2) Profiel bewerken" +
+                    "\n3) Medicijnlijst tonen." +
+                    "\n4) Medicijn bewerken." +
+                    "\n5) Gewicht tabel tonen." +
+                    "\n6) Gewicht tabel bewerken.");
+
 
                 //call method depended on chosen number
                 switch (Console.ReadLine())
@@ -81,15 +85,19 @@ namespace Zorgapp
                         Console.ReadKey();
                         break;
 
-                    //2: get readable string of medicineList with ShowMedicineList and print to console
-                    case "2":
+                    //todo case "2"
+
+                    //3: get readable string of medicineList with ShowMedicineList and print to console
+                    case "3":
                         Console.WriteLine(ShowMedicineList());
                         Console.ReadKey();
                         break;
 
-                    //3: get readable string of weightMeasurePointList with GetWeightGraph and print to console
-                    case "3":
-                        Console.WriteLine(GetWeightGraph());
+                    //todo case "4"
+
+                    //5: get readable string of weightMeasurePointList with GetWeightGraph and print to console
+                    case "5":
+                        Console.WriteLine(GetWeightTable());
                         Console.ReadKey();
                         break;
 
@@ -103,10 +111,10 @@ namespace Zorgapp
         }
 
         //show profile with field variable profile calls
-        private string ShowProfile() 
+        private string ShowProfile()
         {
             //return concatanated string
-            return 
+            return
                 $"\nVoornaam: {profile.GetFirstName()}\n" +
                 $"Achternaam: {profile.GetLastName()}\n" +
                 $"Leeftijd: {profile.GetAge()}\n" +
@@ -116,7 +124,7 @@ namespace Zorgapp
         }
 
         //show medicine list with loop variable medicine calls in foreachloop
-        private string ShowMedicineList() 
+        private string ShowMedicineList()
         {
             //initialize local string to concatanate to
             string medicineListAsString = string.Empty;
@@ -124,7 +132,7 @@ namespace Zorgapp
             foreach (Medicine medicine in medicineList)
             {
                 //concatanate to local string
-                medicineListAsString += 
+                medicineListAsString +=
                     $"\nMedicijnnaam: {medicine.GetMedicineName()}\n" +
                     $"Beschrijving: {medicine.GetDescription()}\n" +
                     $"Soort: {medicine.GetSort()}\n" +
@@ -135,7 +143,9 @@ namespace Zorgapp
         }
 
         //show data table with loop variable weightMeasurePoint calls in foreachloop
-        private string GetWeightGraph()
+        
+        //todo convert string to table
+        private string GetWeightTable ()
         {
             //initialize local string to concatanate to
             string weightMeasurePointAsString = string.Empty;
