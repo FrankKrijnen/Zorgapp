@@ -151,5 +151,20 @@ namespace Zorgapp
             //return local string
             return weightMeasurePointAsString;
         }
+
+        //edit profile
+        private void EditProfile() { }
+
+        //edit medicine
+        private void EditMedicine() { }
+
+        //edit weightmeasurepoint
+        private void EditWeightMeasurePoint() { }
+
+        //start alarm
+        private void StartAlarm() { }
+
+        //alarm to notify to take in medicine
+        private void Alarm() { }
     }
 }
