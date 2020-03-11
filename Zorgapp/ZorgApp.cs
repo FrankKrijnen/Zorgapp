@@ -143,8 +143,7 @@ namespace Zorgapp
         }
 
         //show data table with loop variable weightMeasurePoint calls in foreachloop
-        
-        //todo convert string to table
+        //todo convert string to readable string table
         private string GetWeightTable ()
         {
             //initialize local string to concatanate to
@@ -162,19 +161,19 @@ namespace Zorgapp
             return weightMeasurePointAsString;
         }
 
-        //edit profile
+        //todo edit profile
         private void EditProfile() { }
 
-        //edit medicine
+        //todo edit medicine
         private void EditMedicine() { }
 
-        //edit weightmeasurepoint
+        //todo edit weightmeasurepoint
         private void EditWeightMeasurePoint() { }
 
-        //start alarm
+        //todo start alarm
         private void StartAlarm() { }
 
-        //alarm to notify to take in medicine
+        //todo alarm to notify to take in medicine
         private void Alarm() { }
     }
 }
