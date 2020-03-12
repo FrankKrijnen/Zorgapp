@@ -47,7 +47,8 @@ namespace Zorgapp
         {
             //return weight divided by length to the power of two.
             //(weight / (length^2))
-            return Convert.ToString(GetWeight() / Math.Pow((int)GetLength(), 2)); 
+            double bmi = GetWeight() / (Math.Pow(GetLength(), 2));
+            return Convert.ToString(Math.Round(bmi, 2));
         }
     }
 }
