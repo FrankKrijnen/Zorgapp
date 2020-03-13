@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Zorgapp
 {
-    class ZorgApp
+    partial class ZorgApp
     {
         //fields and properties
         private Profile profile;
@@ -58,206 +58,8 @@ namespace Zorgapp
             weightMeasurePointList.Add(new WeightMeasurePoint("22-02-2011", "18:35", 63.11));
         }
 
-        //display menu with numbers to choose from
-        private void DisplayMenu()
-        {
-            //keep the menu running
-            while (true)
-            {
-                //clear the console screen and show options with assigned numbers
-                Console.Clear();
-                Console.WriteLine($"Datum: {DateTime.Now}\nWelkom in het menu");
-                Console.WriteLine("\nKies een nummer: " +
-                    "\n1) Profiel tonen." +
-                    "\n2) Profiel bewerken" +
-                    "\n3) Medicijnlijst tonen." +
-                    "\n4) Medicijn bewerken." +
-                    "\n5) Gewicht tabel tonen." +
-                    "\n6) Gewicht tabel bewerken.");
-
-
-                //call method depended on chosen number
-                switch (Console.ReadLine())
-                {
-                    //1: get readable string of profile with ShowProfile and print to console
-                    case "1":
-                        Console.WriteLine(ShowProfile());
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-
-                    //todo case "2"
-                    case "2":
-                        Console.WriteLine(ShowProfile());
-                        Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4, 5)");
-                        bool showProfileAfterEdit = false;
-                        switch (Console.ReadLine())
-                        {
-
-                            case "1":
-                                Console.WriteLine("Voer uw voornaam in: ");
-                                EditProfile(profile, 1);
-                                break;
-                            case "2":
-                                Console.WriteLine("Voer uw achternaam in: ");
-                                EditProfile(profile, 2);
-                                break;
-                            case "3":
-                                Console.WriteLine("Voer uw leeftijd in: ");
-                                EditProfile(profile, 3);
-                                break;
-                            case "4":
-                                Console.WriteLine("Voer uw gewicht in met een comma: ");
-                                EditProfile(profile, 4);
-                                break;
-                            case "5":
-                                Console.WriteLine("Voer uw lengte in met een comma: ");
-                                EditProfile(profile, 5);
-                                break;
-                            default:
-                                showProfileAfterEdit = true;
-                                break;
-                        }
-                        if (showProfileAfterEdit == false)
-                        {
-                            Console.WriteLine(ShowProfile());
-                        }
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-
-                    //3: get readable string of medicineList with ShowMedicineList and print to console
-                    case "3":
-                        Console.WriteLine(ShowMedicineList());
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-
-                    //todo case "4"
-                    case "4":
-                        Console.WriteLine(ShowMedicineList());
-                        Console.WriteLine("\nMaak een keuze om te bewerken: ");
-
-                        string medicineIdString = Console.ReadLine();
-                        if (string.IsNullOrEmpty(medicineIdString))
-                        {
-                            break;
-                        }
-
-                        int medicineId = 0;
-                        if (Int32.TryParse(medicineIdString, out int result))
-                        {
-                            medicineId = result;
-                        }
-                        else 
-                        {
-                            break;
-                        }
-                        if (medicineList.Count < medicineId || medicineId < 1)
-                        {
-                            break;
-                        }
-                        Medicine medicine = medicineList[medicineId - 1];
-                        bool showMedicineAfterEdit = false;
-                        Console.WriteLine(ShowMedicine(medicine));
-                        Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4)");
-
-                        switch (Console.ReadLine())
-                        {
-                            case "1":
-                                EditMedicine(medicine, 1);
-                                break;
-                            case "2":
-                                EditMedicine(medicine, 2);
-                                break;
-                            case "3":
-                                EditMedicine(medicine, 3);
-                                break;
-                            case "4":
-                                EditMedicine(medicine, 4);
-                                break;
-                            default:
-                                showMedicineAfterEdit = true;
-                                break;
-                        }
-                        if (showMedicineAfterEdit == false)
-                        {
-                            Console.WriteLine(ShowMedicine(medicine));
-                        }
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-
-                    //5: get readable string of weightMeasurePointList with GetWeightGraph and print to console
-                    case "5":
-                        Console.WriteLine(GetWeightTable());
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-
-                    case "6":
-                        Console.WriteLine(GetWeightTable());
-                        Console.WriteLine("\nMaak een keuze om te bewerken: ");
-
-                        string weightIdString = Console.ReadLine();
-                        if (string.IsNullOrEmpty(weightIdString))
-                        {
-                            break;
-                        }
-                        int weightId = 0;
-                        if (Int32.TryParse(weightIdString, out int result1))
-                        {
-                            weightId = result1;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        if (weightMeasurePointList.Count < weightId || weightId < 1)
-                        {
-                            break;
-                        }
-
-                        bool showWeightAfterEdit = false;
-                        WeightMeasurePoint weightMeasurePoint = weightMeasurePointList[weightId - 1];
-                        Console.WriteLine(ShowWeightMeasurePoint(weightMeasurePoint));
-                        Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3)");
-
-                        switch (Console.ReadLine())
-                        {
-                            case "1":
-                                Console.WriteLine("Voer de datum in: ");
-                                EditWeightMeasurePoint(weightMeasurePoint, 1);
-                                break;
-                            case "2":
-                                Console.WriteLine("Voer de tijd in: ");
-                                EditWeightMeasurePoint(weightMeasurePoint, 2);
-                                break;
-                            case "3":
-                                Console.WriteLine("Voer uw gewicht in met een comma: ");
-                                EditWeightMeasurePoint(weightMeasurePoint, 3);
-                                break;
-                            default:
-                                showWeightAfterEdit = true;
-                                break;
-                        }
-                        if (showWeightAfterEdit == false)
-                        {
-                            Console.WriteLine(ShowWeightMeasurePoint(weightMeasurePoint));
-                        }
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-
-                    //else: print error message to console and return to main menu
-                    default:
-                        Console.WriteLine("Nummer niet herkent! Probeer nogmaals..");
-                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
-                        Console.ReadKey();
-                        break;
-                }
-            }
-        }
+        
+        
 
         //show profile with field variable profile calls
         private string ShowProfile()
@@ -283,7 +85,34 @@ namespace Zorgapp
 
         }
 
-        //??
+        //show medicine list with loop variable medicine calls in foreachloop
+        private string ShowMedicineList()
+        {
+            //initialize local int to count iterations
+            int choice = 1;
+
+            //initialize local string to concatanate to
+            string medicineListAsString = string.Empty;
+
+            //loop through field variable medicineList
+            foreach (Medicine medicine in medicineList)
+            {
+                //concatanate to local string
+                medicineListAsString +=
+                    $"\nKeuzenummer: {choice}" +
+                    $"\nMedicijnnaam: {medicine.GetMedicineName()}\n" +
+                    $"Beschrijving: {medicine.GetDescription()}\n" +
+                    $"Soort: {medicine.GetSort()}\n" +
+                    $"Dosering: {medicine.GetDosage()}\n";
+
+                //increment local int choice
+                choice++;
+            }
+            //return local string
+            return medicineListAsString;
+        }
+
+        //show weightMeasurePoint from list
         private string ShowWeightMeasurePoint(WeightMeasurePoint weightMeasurePointList)
         {
             return
@@ -292,45 +121,34 @@ namespace Zorgapp
                     "\n3)Gewicht: " + weightMeasurePointList.GetWeight();
         }
 
-        //show medicine list with loop variable medicine calls in foreachloop
-        private string ShowMedicineList()
-        {
-            //initialize local string to concatanate to
-            string medicineListAsString = string.Empty;
-            //loop through field variable medicineList
-            foreach (Medicine medicine in medicineList)
-            {
-                //concatanate to local string
-                medicineListAsString +=
-                    $"\nMedicijnnaam: {medicine.GetMedicineName()}\n" +
-                    $"Beschrijving: {medicine.GetDescription()}\n" +
-                    $"Soort: {medicine.GetSort()}\n" +
-                    $"Dosering: {medicine.GetDosage()}\n";
-            }
-            //return local string
-            return medicineListAsString;
-        }
-
         //show data table with loop variable weightMeasurePoint calls in foreachloop
         //todo convert string to readable string table
-        private string GetWeightTable ()
+        private string ShowWeightMeasurePointList()
         {
             //initialize local string to concatanate to
             string weightMeasurePointAsString = string.Empty;
+
+            //initialize local int to count iterations
+            int choice = 1;
             //loop through field variable weightMeasurePointList
             foreach (WeightMeasurePoint weightMeasurePoint in weightMeasurePointList)
             {
                 //concatanate to local string
                 weightMeasurePointAsString +=
+                    $"\nKeuzenummer: {choice}" +
                     $"\nDatum: {weightMeasurePoint.GetDate()}\n" +
                     $"Tijd: {weightMeasurePoint.GetTime()}\n" +
                     $"Gewicht: {weightMeasurePoint.GetWeight()} Kilogram\n";
+
+                //increment local int choice
+                choice++;
             }
             //return local string
             return weightMeasurePointAsString;
         }
 
-        //todo edit profile
+        //edit profile
+        //todo add comments
         private void EditProfile(Profile profile, int userInput) 
         {
             switch (userInput)
@@ -356,7 +174,8 @@ namespace Zorgapp
             return;
         }
 
-        //todo edit medicine
+        //edit medicine
+        //todo add comments
         private void EditMedicine(Medicine medicine, int userInput) 
         {
 
@@ -380,7 +199,8 @@ namespace Zorgapp
             return;
         }
 
-        //todo edit weightmeasurepoint
+        //edit weightmeasurepoint
+        //todo add comments
         private void EditWeightMeasurePoint(WeightMeasurePoint weightMeasurePoint, int userInput) 
         {
             switch (userInput)
@@ -401,9 +221,11 @@ namespace Zorgapp
         }
 
         //todo start alarm
+        //todo add comments
         private void StartAlarm() { }
 
         //todo alarm to notify to take in medicine
+        //todo add comments
         private void Alarm() { }
     }
 }
