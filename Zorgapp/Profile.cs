@@ -45,9 +45,11 @@ namespace Zorgapp
         //GetBmi calculates the bmi  
         public string GetBmi() 
         {
-            //return weight divided by length to the power of two.
-            //(weight / (length^2))
+            /*return weight divided by length to the power of two.
+            (weight / (length^2))*/
             double bmi = GetWeight() / (Math.Pow(GetLength(), 2));
+
+            //convert and round it before return
             return Convert.ToString(Math.Round(bmi, 2));
         }
     }

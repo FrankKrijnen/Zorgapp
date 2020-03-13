@@ -26,11 +26,9 @@ namespace Zorgapp
 
 
         //methods
-        //ViewData: all data?
-        public void ViewData() { }
-
-
-
+        /*all methods get called in displaymenu method
+        except for the ones in the constructor*/
+        
         //add static data to ZorgApp
         private void AddStartData()
         {
@@ -74,6 +72,7 @@ namespace Zorgapp
                 $"   BMI: {profile.GetBmi()}";
         }
 
+        //show medicine with parameter medicine calls
         private string ShowMedicine(Medicine medicine)
         {
             return
@@ -227,5 +226,9 @@ namespace Zorgapp
         //todo alarm to notify to take in medicine
         //todo add comments
         private void Alarm() { }
+
+        //todo show all data?
+        //todo add comments
+        private void ShowAllData() { }
     }
 }

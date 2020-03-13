@@ -8,6 +8,8 @@ namespace Zorgapp
 {
     partial class ZorgApp
     {
+        /*todo extract nested switches and cases to new methods
+        method name as: SwitchOneCaseOne*/
         //display menu with numbers to choose from
         private void DisplayMenu()
         {
