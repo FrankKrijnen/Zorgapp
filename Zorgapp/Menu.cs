@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zorgapp 
 {
@@ -45,49 +41,12 @@ namespace Zorgapp
                     //case 2: edit profile attribute based on number of choices
                     case "2":
 
-                        //initialize local bool for switch default check
-                        bool showProfileAfterEdit = true;
-
                         //present user with number choices
                         Console.WriteLine(ShowProfile());
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4, 5)");
 
                         //edit profile with userinput based on number
-                        switch (Console.ReadLine())
-                        {
-
-                            case "1":
-                                Console.WriteLine("Voer uw voornaam in: ");
-                                EditProfile(profile, 1);
-                                break;
-                            case "2":
-                                Console.WriteLine("Voer uw achternaam in: ");
-                                EditProfile(profile, 2);
-                                break;
-                            case "3":
-                                Console.WriteLine("Voer uw leeftijd in: ");
-                                EditProfile(profile, 3);
-                                break;
-                            case "4":
-                                Console.WriteLine("Voer uw gewicht in met een comma: ");
-                                EditProfile(profile, 4);
-                                break;
-                            case "5":
-                                Console.WriteLine("Voer uw lengte in met een comma: ");
-                                EditProfile(profile, 5);
-                                break;
-                            default:
-                                showProfileAfterEdit = false;
-                                break;
-                        }
-
-                        //check for local bool if editing is done
-                        if (showProfileAfterEdit == true)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Bewerking is opgeslagen.\n\n");
-                            Console.WriteLine(ShowProfile());
-                        }
+                        EditProfileSwitch();
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
@@ -115,31 +74,13 @@ namespace Zorgapp
                         //checks on userinput
                         string medicineIdString = Console.ReadLine();
 
-                        //check 1: check if userinput is empty
-                        if (string.IsNullOrEmpty(medicineIdString))
-                        {
-                            break;
-                        }
-
-                        //check 2: check if userinput is a number
-                        int medicineId;
-                        if (Int32.TryParse(medicineIdString, out int result))
-                        {
-                            medicineId = result;
-                        }
-                        else
-                        {
-                            break;
-                        }
-
-                        //check 3: check if userinput is within index limits of medicineList
-                        if (medicineList.Count < medicineId || medicineId < 1)
+                        if (!UserInputCheck(medicineIdString, out int id))
                         {
                             break;
                         }
 
                         //get medicine from list
-                        Medicine medicine = medicineList[medicineId - 1];
+                        Medicine medicine = medicineList[id - 1];
 
                         //initialize local bool for switch default check
                         bool showMedicineAfterEdit = true;
@@ -153,15 +94,19 @@ namespace Zorgapp
                         switch (Console.ReadLine())
                         {
                             case "1":
+                                Console.WriteLine("Voer de medicijnnaam in: ");
                                 EditMedicine(medicine, 1);
                                 break;
                             case "2":
+                                Console.WriteLine("Voer de beschrijving in: ");
                                 EditMedicine(medicine, 2);
                                 break;
                             case "3":
+                                Console.WriteLine("Voer de soort in: ");
                                 EditMedicine(medicine, 3);
                                 break;
                             case "4":
+                                Console.WriteLine("Voer de dosering in: ");
                                 EditMedicine(medicine, 4);
                                 break;
                             default:
@@ -279,5 +224,7 @@ namespace Zorgapp
                 }
             }
         }
+
+        
     }
 }
