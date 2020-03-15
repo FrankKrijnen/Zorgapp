@@ -29,7 +29,7 @@ namespace Zorgapp
                 {
                     //case 1: get readable string of profile with ShowProfile and print to console
                     case "1":
-
+                        #region
                         //show profile
                         Console.WriteLine(ShowProfile());
 
@@ -37,10 +37,11 @@ namespace Zorgapp
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
                         Console.ReadKey();
                         break;
+                    #endregion
 
                     //case 2: edit profile attribute based on number of choices
                     case "2":
-
+                        #region
                         //present user with number choices
                         Console.WriteLine(ShowProfile());
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4, 5)");
@@ -52,10 +53,11 @@ namespace Zorgapp
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
                         Console.ReadKey();
                         break;
+                    #endregion
 
                     //case 3: get readable string of medicineList with ShowMedicineList and print to console
                     case "3":
-
+                        #region
                         //show medicine list
                         Console.WriteLine(ShowMedicineList());
 
@@ -63,10 +65,11 @@ namespace Zorgapp
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
                         Console.ReadKey();
                         break;
+                    #endregion
 
                     //case 4: edit medicine attribute in medicineList based on number of choices
                     case "4":
-
+                        #region
                         //show weight table with numbers to choose from
                         Console.WriteLine(ShowMedicineList());
                         Console.WriteLine("\nMaak een keuze om te bewerken: ");
@@ -74,62 +77,32 @@ namespace Zorgapp
                         //checks on userinput
                         string medicineIdString = Console.ReadLine();
 
-                        if (!UserInputCheck(medicineIdString, out int id))
+                        //break if checks fail
+                        if (!UserInputCheck(medicineIdString, medicineList, out int medicineId))
                         {
                             break;
                         }
 
                         //get medicine from list
-                        Medicine medicine = medicineList[id - 1];
-
-                        //initialize local bool for switch default check
-                        bool showMedicineAfterEdit = true;
+                        Medicine medicine = medicineList[medicineId - 1];
 
                         //present user with number choices
                         Console.Clear();
                         Console.WriteLine(ShowMedicine(medicine));
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4)");
 
-                        //edit medcine with userinput based on number
-                        switch (Console.ReadLine())
-                        {
-                            case "1":
-                                Console.WriteLine("Voer de medicijnnaam in: ");
-                                EditMedicine(medicine, 1);
-                                break;
-                            case "2":
-                                Console.WriteLine("Voer de beschrijving in: ");
-                                EditMedicine(medicine, 2);
-                                break;
-                            case "3":
-                                Console.WriteLine("Voer de soort in: ");
-                                EditMedicine(medicine, 3);
-                                break;
-                            case "4":
-                                Console.WriteLine("Voer de dosering in: ");
-                                EditMedicine(medicine, 4);
-                                break;
-                            default:
-                                showMedicineAfterEdit = false;
-                                break;
-                        }
-
-                        //check for local bool if editing is done
-                        if (showMedicineAfterEdit == true)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Bewerking is opgeslagen.\n\n");
-                            Console.WriteLine(ShowMedicine(medicine));
-                        }
+                        //edit medicine with userinput based on number
+                        EditMedicineSwitch(medicine);
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
                         Console.ReadKey();
                         break;
+                    #endregion
 
                     //case 5: get readable string of weightMeasurePointList with GetWeightGraph and print to console
                     case "5":
-
+                        #region
                         //show weight table
                         Console.WriteLine(ShowWeightMeasurePointList());
 
@@ -137,10 +110,11 @@ namespace Zorgapp
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
                         Console.ReadKey();
                         break;
+                    #endregion
 
                     //case 6: edit weightMeasurePoint attribute in weightMeasurePointList based on number of choices
                     case "6":
-
+                        #region
                         //show weight table with numbers to choose from
                         Console.WriteLine(ShowWeightMeasurePointList());
                         Console.WriteLine("\nMaak een keuze om te bewerken: ");
@@ -148,31 +122,11 @@ namespace Zorgapp
                         //checks on userinput
                         string weightIdString = Console.ReadLine();
 
-                        //check 1: check if userinput is empty
-                        if (string.IsNullOrEmpty(weightIdString))
+                        //break if checks fail
+                        if (!UserInputCheck(weightIdString, weightMeasurePointList, out int weightId))
                         {
                             break;
                         }
-
-                        //check 2: check if userinput is a number
-                        int weightId;
-                        if (Int32.TryParse(weightIdString, out int result1))
-                        {
-                            weightId = result1;
-                        }
-                        else
-                        {
-                            break;
-                        }
-
-                        //check 3: check if userinput is within index limits of weightMeasurePointList
-                        if (weightMeasurePointList.Count < weightId || weightId < 1)
-                        {
-                            break;
-                        }
-
-                        //initialize local bool for switch default check
-                        bool showWeightAfterEdit = true;
 
                         //get weightMeasurePoint from list
                         WeightMeasurePoint weightMeasurePoint = weightMeasurePointList[weightId - 1];
@@ -183,37 +137,13 @@ namespace Zorgapp
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3)");
 
                         //edit weightMeasurePoint with userinput based on number
-                        switch (Console.ReadLine())
-                        {
-                            case "1":
-                                Console.WriteLine("Voer de datum in: ");
-                                EditWeightMeasurePoint(weightMeasurePoint, 1);
-                                break;
-                            case "2":
-                                Console.WriteLine("Voer de tijd in: ");
-                                EditWeightMeasurePoint(weightMeasurePoint, 2);
-                                break;
-                            case "3":
-                                Console.WriteLine("Voer uw gewicht in met een comma: ");
-                                EditWeightMeasurePoint(weightMeasurePoint, 3);
-                                break;
-                            default:
-                                showWeightAfterEdit = false;
-                                break;
-                        }
-
-                        //check for local bool if editing is done
-                        if (showWeightAfterEdit == true)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Bewerking is opgeslagen.\n\n");
-                            Console.WriteLine(ShowWeightMeasurePoint(weightMeasurePoint));
-                        }
+                        EditWeightSwitch(weightMeasurePoint);
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
                         Console.ReadKey();
                         break;
+                    #endregion
 
                     //else: print error message to console and return to main menu
                     default:
@@ -226,5 +156,8 @@ namespace Zorgapp
         }
 
         
+
+
+
     }
 }
