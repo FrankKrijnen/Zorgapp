@@ -1,4 +1,6 @@
-﻿namespace Zorgapp
+﻿using System;
+
+namespace Zorgapp
 {
     class Medicine
     {
@@ -6,12 +8,12 @@
         private string medicineName;
         private string description;
         private string sort;
-        private string dosage;
+        private DateTime dosage;
 
         //constructor with 1 overload
         public Medicine() { }
 
-        public Medicine(string medicineName, string description, string sort, string dosage) 
+        public Medicine(string medicineName, string description, string sort, DateTime dosage) 
         {
             SetMedicineName(medicineName);
             SetDescription(description);
@@ -24,12 +26,12 @@
         public void SetMedicineName(string medicineName) { this.medicineName = medicineName; }
         public void SetDescription(string description) { this.description = description; }
         public void SetSort(string sort) { this.sort = sort; }
-        public void SetDosage(string dosage) { this.dosage = dosage; }
+        public void SetDosage(DateTime dosage) { this.dosage = dosage; }
 
         //getters
         public string GetMedicineName() { return medicineName; }
         public string GetDescription() { return description; }
         public string GetSort() { return sort; }
-        public string GetDosage() { return dosage; }
+        public DateTime GetDosage() { return dosage; }
     }
 }

@@ -5,6 +5,7 @@ namespace Zorgapp
 {
     partial class ZorgApp
     {
+
         private void EditProfileSwitch()
         {
 
@@ -139,10 +140,10 @@ namespace Zorgapp
 
         private bool UserInputCheck<T>(string idString, List<T> list, out int id) 
         {
+            id = 0;
             //check 1: check if userinput is empty
             if (string.IsNullOrEmpty(idString))
             {
-                id = 0;
                 return false;
             }
 
@@ -153,14 +154,12 @@ namespace Zorgapp
             }
             else
             {
-                id = 0;
                 return false;
             }
 
             //check 3: check if userinput is within index limits of list
             if (list.Count < id || id < 1)
             {
-                id = 0;
                 return false;
             }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Zorgapp
 {
@@ -9,6 +10,7 @@ namespace Zorgapp
         private Profile profile;
         private List<Medicine> medicineList;
         private List<WeightMeasurePoint> weightMeasurePointList;
+        private List<string> medicineListOfToday;
 
         //constructor
         public ZorgApp()
@@ -17,10 +19,13 @@ namespace Zorgapp
             profile = new Profile();
             medicineList = new List<Medicine>();
             weightMeasurePointList = new List<WeightMeasurePoint>();
+            medicineListOfToday = new List<string>();
 
             //call startup methods
             AddStartData();
+            StartAlarm();
             DisplayMenu();
+            
         }
 
 
@@ -44,12 +49,12 @@ namespace Zorgapp
                 "Oxazepam",
                 "Het werkt rustgevend, spierontspannend, vermindert angstgevoelens en beïnvloedt de overdracht van elektrische prikkels in de hersenen.",
                 "Oxazepam behoort tot de benzodiazepinen.",
-                "50 mg per 24 uur."));
+                DateTime.Today.AddHours(20).AddMinutes(19)));
             medicineList.Add(new Medicine(
                 "Diclofenac",
                 "Het is te gebruiken bij pijn waarbij ook sprake is van een ontsteking, zoals bij gewrichtspijn, reumatoïde artritis (ontsteking van de gewrichten), ziekte van Bechterew en jicht (onsteking in uw gewricht).",
                 "Dit soort (Diclofenac) pijnstillers wordt ook wel NSAID's genoemd.",
-                "1 tablet per 6 uur."));
+                DateTime.Today.AddHours(9).AddMinutes(10)));
 
             //add WeightMeasurePoint data to list as a new initialized object
             weightMeasurePointList.Add(new WeightMeasurePoint("20-04-2010", "19:40", 65.55));
@@ -190,7 +195,7 @@ namespace Zorgapp
                     medicine.SetSort(Console.ReadLine());
                     break;
                 case 4:
-                    medicine.SetDosage(Console.ReadLine());
+                    //medicine.SetDosage(Console.ReadLine());
                     break;
                 default:
                     break;
@@ -221,11 +226,29 @@ namespace Zorgapp
 
         //todo start alarm
         //todo add comments
-        private void StartAlarm() { }
+        private void StartAlarm() 
+        {
+            Timer timer = new Timer(new TimerCallback(Alarm));
+            timer.Change(10000, 5000);
+        }
 
         //todo alarm to notify to take in medicine
         //todo add comments
-        private void Alarm() { }
+        private void Alarm(object state) 
+        {
+            
+            foreach (Medicine medicine in medicineList)
+            {
+                if (medicine.GetDosage().CompareTo(DateTime.Now) < 1)
+                {
+                    if (!medicineListOfToday.Contains(medicine.GetMedicineName()))
+                    {
+                        medicineListOfToday.Add(medicine.GetMedicineName());
+                        Console.WriteLine(medicine.GetMedicineName());
+                    }
+                }
+            }
+        }
 
         //todo show all data?
         //todo add comments
