@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleTables;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -16,6 +17,7 @@ namespace Zorgapp
         public ZorgApp()
         {
             //initialize class object and lists
+            //todo profile to list of profile objects
             profile = new Profile();
             medicineList = new List<Medicine>();
             weightMeasurePointList = new List<WeightMeasurePoint>();
@@ -23,7 +25,7 @@ namespace Zorgapp
 
             //call startup methods
             AddStartData();
-            StartAlarm();
+            //StartAlarm();
             DisplayMenu();
             
         }
@@ -47,12 +49,13 @@ namespace Zorgapp
             //add Medicine data to list as a new initialized object
             medicineList.Add(new Medicine(
                 "Oxazepam",
-                "Het werkt rustgevend, spierontspannend, vermindert angstgevoelens en beïnvloedt de overdracht van elektrische prikkels in de hersenen.",
+                "Het werkt rustgevend, spierontspannend, vermindert angstgevoelens.",
                 "Oxazepam behoort tot de benzodiazepinen.",
                 DateTime.Today.AddHours(20).AddMinutes(19)));
+
             medicineList.Add(new Medicine(
                 "Diclofenac",
-                "Het is te gebruiken bij pijn waarbij ook sprake is van een ontsteking, zoals bij gewrichtspijn, reumatoïde artritis (ontsteking van de gewrichten), ziekte van Bechterew en jicht (onsteking in uw gewricht).",
+                "Het is te gebruiken bij pijn waarbij ook sprake is van een ontsteking.",
                 "Dit soort (Diclofenac) pijnstillers wordt ook wel NSAID's genoemd.",
                 DateTime.Today.AddHours(9).AddMinutes(10)));
 
@@ -60,9 +63,6 @@ namespace Zorgapp
             weightMeasurePointList.Add(new WeightMeasurePoint("20-04-2010", "19:40", 65.55));
             weightMeasurePointList.Add(new WeightMeasurePoint("22-02-2011", "18:35", 63.11));
         }
-
-        
-        
 
         //show profile with field variable profile calls
         private string ShowProfile()
@@ -129,26 +129,27 @@ namespace Zorgapp
         //todo convert string to readable string table
         private string ShowWeightMeasurePointList()
         {
-            //initialize local string to concatanate to
-            string weightMeasurePointAsString = string.Empty;
-
+            //initialize local ConsoleTable to add column names
+            ConsoleTable table = new ConsoleTable("Keuze", "Datum", "Tijd", "Gewicht");
+            
             //initialize local int to count iterations
             int choice = 1;
+            table.Options.EnableCount = false;
             //loop through field variable weightMeasurePointList
             foreach (WeightMeasurePoint weightMeasurePoint in weightMeasurePointList)
             {
-                //concatanate to local string
-                weightMeasurePointAsString +=
-                    $"\nKeuzenummer: {choice}" +
-                    $"\nDatum: {weightMeasurePoint.GetDate()}\n" +
-                    $"Tijd: {weightMeasurePoint.GetTime()}\n" +
-                    $"Gewicht: {weightMeasurePoint.GetWeight()} Kilogram\n";
+                //add row to table
+                table.AddRow(
+                    choice,
+                    weightMeasurePoint.GetDate(), 
+                    weightMeasurePoint.GetTime(), 
+                    weightMeasurePoint.GetWeight()+" Kg");
 
                 //increment local int choice
                 choice++;
             }
-            //return local string
-            return weightMeasurePointAsString;
+            //return local ConsoleTable as string
+            return table.ToString();
         }
 
         //edit profile
@@ -224,25 +225,30 @@ namespace Zorgapp
             return;
         }
 
-        //todo start alarm
-        //todo add comments
+        //start alarm with timercallback, handling calls from new timer object
         private void StartAlarm() 
         {
+            //initialize new timer object with timercallback calling alarm method
             Timer timer = new Timer(new TimerCallback(Alarm));
+
+            //change timer properties: 10 seconds initial delay. 5 seconds between each call
             timer.Change(10000, 5000);
         }
 
-        //todo alarm to notify to take in medicine
-        //todo add comments
+        //alarm to notify to take in medicine
         private void Alarm(object state) 
         {
-            
+            //object state is timer object from StartAlarm: not yet used.
+
             foreach (Medicine medicine in medicineList)
             {
+                //compare datetime from medicine intake with current datetime
                 if (medicine.GetDosage().CompareTo(DateTime.Now) < 1)
                 {
+                    //check in medicineListOfToday for medicine name
                     if (!medicineListOfToday.Contains(medicine.GetMedicineName()))
                     {
+                        //add medicine name to medicineListOfToday
                         medicineListOfToday.Add(medicine.GetMedicineName());
                         Console.WriteLine(medicine.GetMedicineName());
                     }
