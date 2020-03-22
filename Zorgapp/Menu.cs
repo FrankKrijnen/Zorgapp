@@ -51,7 +51,7 @@ namespace Zorgapp
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4, 5)");
 
                         //edit profile with userinput based on number
-                        EditProfileSwitch();
+                        EditProfileSwitch(profile, Console.ReadLine());
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");

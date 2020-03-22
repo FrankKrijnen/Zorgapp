@@ -2,7 +2,7 @@
 
 namespace Zorgapp
 {
-    class Profile
+    public class Profile
     {
         //fields and properties
         private string firstName;

@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Zorgapp\Zorgapp.csproj">
-      <Project>{29AE2367-3CAF-4F3A-82CA-58D2BAFA9FC9}</Project>
+      <Project>{29ae2367-3caf-4f3a-82ca-58d2bafa9fc9}</Project>
       <Name>Zorgapp</Name>
     </ProjectReference>
   </ItemGroup>

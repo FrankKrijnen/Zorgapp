@@ -4,55 +4,45 @@ using System.Collections.Generic;
 namespace Zorgapp
 {
     //partial class ZorgApp #3
+    
     partial class ZorgApp
     {
 
-        private void EditProfileSwitch()
+        private void EditProfileSwitch(Profile profile, string choice)
         {
 
-            //initialize local bool for switch default check
-            bool showProfileAfterEdit = true;
-
-            switch (Console.ReadLine())
+            switch (choice)
             {
 
                 case "1":
                     Console.WriteLine("Voer uw voornaam in: ");
-                    EditProfile(profile, 1);
+                    EditProfile(profile, 1, Console.ReadLine());
                     break;
                 case "2":
                     Console.WriteLine("Voer uw achternaam in: ");
-                    EditProfile(profile, 2);
+                    EditProfile(profile, 2, Console.ReadLine());
                     break;
                 case "3":
                     Console.WriteLine("Voer uw leeftijd in: ");
-                    EditProfile(profile, 3);
+                    EditProfile(profile, 3, Console.ReadLine());
                     break;
                 case "4":
                     Console.WriteLine("Voer uw gewicht in met een comma: ");
-                    EditProfile(profile, 4);
+                    EditProfile(profile, 4, Console.ReadLine());
                     break;
                 case "5":
                     Console.WriteLine("Voer uw lengte in met een comma: ");
-                    EditProfile(profile, 5);
+                    EditProfile(profile, 5, Console.ReadLine());
                     break;
                 default:
-                    showProfileAfterEdit = false;
-                    break;
+                    Console.Clear();
+                    Console.WriteLine("Bewerking is NIET opgeslagen.\n\n");
+                    return;
             }
 
-            //check for local bool if editing is done
-            if (showProfileAfterEdit == true)
-            {
-                Console.Clear();
-                Console.WriteLine("Bewerking is opgeslagen.\n\n");
-                Console.WriteLine(ShowProfile());
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("Bewerking is NIET opgeslagen.\n\n");
-            }
+            Console.Clear();
+            Console.WriteLine("Bewerking is opgeslagen.\n\n");
+            Console.WriteLine(ShowProfile());
             return;
         }
 

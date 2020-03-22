@@ -9,13 +9,13 @@ namespace Zorgapp
     public partial class ZorgApp
     {
         //fields and properties
-        private Profile profile;
+        public Profile profile;
         private List<Medicine> medicineList;
         private List<WeightMeasurePoint> weightMeasurePointList;
         private List<string> medicineListOfToday;
 
         //constructor
-        public ZorgApp()
+        public ZorgApp(bool testing = false)
         {
             //initialize class object and lists
             //todo profile to list of profile objects
@@ -27,7 +27,12 @@ namespace Zorgapp
             //call startup methods
             AddStartData();
             //StartAlarm();
+
             //todo change output from show methods to ConsoleTable's
+            if (testing)
+            {
+                return;
+            }
             DisplayMenu();
         }
 
@@ -64,7 +69,7 @@ namespace Zorgapp
         }
 
         //show profile with field variable profile calls
-        private string ShowProfile()
+        public string ShowProfile()
         {
             //initialize local ConsoleTable to add column names
             ConsoleTable table = new ConsoleTable("Voornaam(1)", "Achternaam(2)", "Leeftijd(3)", "Gewicht(4)", "Lengte(5)", "BMI");
@@ -173,24 +178,24 @@ namespace Zorgapp
 
         //edit profile
         //todo add comments
-        private void EditProfile(Profile profile, int userInput) 
+        public void EditProfile(Profile profile, int choice, string editValue = "") 
         {
-            switch (userInput)
+            switch (choice)
             {
                 case 1:
-                    profile.SetFirstName(Console.ReadLine());
+                    profile.SetFirstName(editValue);
                     break;
                 case 2:
-                    profile.SetLastName(Console.ReadLine());
+                    profile.SetLastName(editValue);
                     break;
                 case 3:
-                    profile.SetAge(Convert.ToInt32(Console.ReadLine()));
+                    profile.SetAge(Convert.ToInt32(editValue));
                     break;
                 case 4:
-                    profile.SetWeight(Convert.ToDouble(Console.ReadLine()));
+                    profile.SetWeight(Convert.ToDouble(editValue));
                     break;
                 case 5:
-                    profile.SetLength(Convert.ToDouble(Console.ReadLine()));
+                    profile.SetLength(Convert.ToDouble(editValue));
                     break;
                 default:
                     break;
