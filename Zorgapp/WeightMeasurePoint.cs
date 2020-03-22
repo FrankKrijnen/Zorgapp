@@ -17,8 +17,6 @@
 
         //methods
         //setters
-        //convention checken 1 liners van c#
-        //encapsulation is verbeterd
         public void SetDate(string date) { this.date = date; }
         public void SetTime(string time) { this.time =  time; }
         public void SetWeight(double weight) { this.weight = weight; }

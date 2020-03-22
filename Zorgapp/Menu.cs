@@ -2,11 +2,12 @@
 
 namespace Zorgapp 
 {
+    //partial class ZorgApp #2
     partial class ZorgApp
     {
-        /*todo extract nested switches and cases to new methods
-        method name as: SwitchOneCaseOne*/
-
+        /*todo:
+         * create extra filter that checks the userinput for editing a value.
+           check on empty or unformatted strings and seperate userinput*/
         //display menu with numbers to choose from
         private void DisplayMenu()
         {
@@ -22,10 +23,12 @@ namespace Zorgapp
                     "\n3) Medicijnlijst tonen." +
                     "\n4) Medicijn bewerken." +
                     "\n5) Gewicht tabel tonen." +
-                    "\n6) Gewicht tabel bewerken.");
+                    "\n6) Gewicht tabel bewerken." +
+                    "\n7) Alle gegevens tonen.");
 
 
                 //call method depended on chosen number
+                
                 switch (Console.ReadLine())
                 {
                     //case 1: get readable string of profile with ShowProfile and print to console
@@ -146,7 +149,20 @@ namespace Zorgapp
                         break;
                     #endregion
 
-                    //else: print error message to console and return to main menu
+                    //case 7: show and print all data from lists and profile to console
+                    case "7":
+                        #region
+                        //show and print all data to console
+                        Console.Clear();
+                        Console.WriteLine(ShowAllData());
+
+                        //return to menu on keypress
+                        Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
+                        Console.ReadKey();
+                        break;
+                    #endregion
+
+                    //else: print error message to console and return to main menu on key press
                     default:
                         Console.WriteLine("Nummer niet herkent! Probeer nogmaals..");
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");

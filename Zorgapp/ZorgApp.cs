@@ -5,7 +5,8 @@ using System.Threading;
 
 namespace Zorgapp
 {
-    partial class ZorgApp
+    //partial class ZorgApp #1 
+    public partial class ZorgApp
     {
         //fields and properties
         private Profile profile;
@@ -26,11 +27,9 @@ namespace Zorgapp
             //call startup methods
             AddStartData();
             //StartAlarm();
+            //todo change output from show methods to ConsoleTable's
             DisplayMenu();
-            
         }
-
-
 
         //methods
         /*all methods get called in displaymenu method
@@ -49,14 +48,14 @@ namespace Zorgapp
             //add Medicine data to list as a new initialized object
             medicineList.Add(new Medicine(
                 "Oxazepam",
-                "Het werkt rustgevend, spierontspannend, vermindert angstgevoelens.",
-                "Oxazepam behoort tot de benzodiazepinen.",
+                "Het werkt rustgevend.",
+                "Benzodiazepinen.",
                 DateTime.Today.AddHours(20).AddMinutes(19)));
 
             medicineList.Add(new Medicine(
                 "Diclofenac",
-                "Het is te gebruiken bij pijn waarbij ook sprake is van een ontsteking.",
-                "Dit soort (Diclofenac) pijnstillers wordt ook wel NSAID's genoemd.",
+                "Te gebruiken bij een ontsteking.",
+                "NSAID",
                 DateTime.Today.AddHours(9).AddMinutes(10)));
 
             //add WeightMeasurePoint data to list as a new initialized object
@@ -67,14 +66,30 @@ namespace Zorgapp
         //show profile with field variable profile calls
         private string ShowProfile()
         {
-            //return concatanated string
-            return
-                $"\n1) Voornaam: {profile.GetFirstName()}\n" +
+            //initialize local ConsoleTable to add column names
+            ConsoleTable table = new ConsoleTable("Voornaam(1)", "Achternaam(2)", "Leeftijd(3)", "Gewicht(4)", "Lengte(5)", "BMI");
+
+            //initialize local int to count iterations
+            int choice = 1;
+            table.Options.EnableCount = false;
+
+            table.AddRow(
+                    //choice,
+                    profile.GetFirstName(),
+                    profile.GetLastName(),
+                    profile.GetAge(),
+                    profile.GetWeight(),
+                    profile.GetLength(),
+                    profile.GetBmi());
+            /*$"\n1) Voornaam: {profile.GetFirstName()}\n" +
                 $"2) Achternaam: {profile.GetLastName()}\n" +
                 $"3) Leeftijd: {profile.GetAge()}\n" +
                 $"4) Gewicht: {profile.GetWeight()} Kg\n" +
                 $"5) Lengte: {profile.GetLength()} M\n" +
-                $"   BMI: {profile.GetBmi()}";
+                $"   BMI: {profile.GetBmi()}";*/
+
+            //return local ConsoleTable as string
+            return table.ToString();
         }
 
         //show medicine with parameter medicine calls
@@ -92,28 +107,32 @@ namespace Zorgapp
         //show medicine list with loop variable medicine calls in foreachloop
         private string ShowMedicineList()
         {
+            //initialize local ConsoleTable to add column names
+            ConsoleTable table = new ConsoleTable("#", "Naam", "Beschrijving", "Soort", "Dosering");
+
             //initialize local int to count iterations
             int choice = 1;
 
             //initialize local string to concatanate to
-            string medicineListAsString = string.Empty;
+            table.Options.EnableCount = false;
 
             //loop through field variable medicineList
             foreach (Medicine medicine in medicineList)
             {
-                //concatanate to local string
-                medicineListAsString +=
-                    $"\nKeuzenummer: {choice}" +
-                    $"\nMedicijnnaam: {medicine.GetMedicineName()}\n" +
-                    $"Beschrijving: {medicine.GetDescription()}\n" +
-                    $"Soort: {medicine.GetSort()}\n" +
-                    $"Dosering: {medicine.GetDosage()}\n";
+                //add row to table
+                table.AddRow(
+                    choice,
+                    medicine.GetMedicineName(),
+                    "Details na keuze",
+                    medicine.GetSort(),
+                    medicine.GetDosage());
 
                 //increment local int choice
                 choice++;
             }
-            //return local string
-            return medicineListAsString;
+
+            //return local ConsoleTable as string
+            return table.ToString();
         }
 
         //show weightMeasurePoint from list
@@ -126,7 +145,6 @@ namespace Zorgapp
         }
 
         //show data table with loop variable weightMeasurePoint calls in foreachloop
-        //todo convert string to readable string table
         private string ShowWeightMeasurePointList()
         {
             //initialize local ConsoleTable to add column names
@@ -135,6 +153,7 @@ namespace Zorgapp
             //initialize local int to count iterations
             int choice = 1;
             table.Options.EnableCount = false;
+
             //loop through field variable weightMeasurePointList
             foreach (WeightMeasurePoint weightMeasurePoint in weightMeasurePointList)
             {
@@ -256,8 +275,14 @@ namespace Zorgapp
             }
         }
 
-        //todo show all data?
+        //show all data
         //todo add comments
-        private void ShowAllData() { }
+        private string ShowAllData() 
+        {
+            return
+                $"\nProfiel:\n{ShowProfile()}\n" +
+                $"\nMedicijnen:\n{ShowMedicineList()}" +
+                $"\nGewichttabel:\n{ShowWeightMeasurePointList()}";
+        }
     }
 }
