@@ -12,7 +12,14 @@ namespace Zorgapp
         private double length;
 
         //constructor with 2 overloads
-        public Profile() { }
+        public Profile() 
+        {
+            SetFirstName(null);
+            SetLastName(null);
+            SetAge(Convert.ToInt32(null));
+            SetWeight(Convert.ToDouble(null));
+            SetLength(Convert.ToDouble(null));
+        }
         public Profile(string firstName, string lastName) 
         {
             SetFirstName(firstName);

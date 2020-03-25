@@ -17,14 +17,23 @@
 
         //methods
         //setters
-        public void SetDate(string date) { this.date = date; }
-        public void SetTime(string time) { this.time =  time; }
-        public void SetWeight(double weight) { this.weight = weight; }
+        public void SetDate(string date) => this.date = date; 
+        public void SetTime(string time) => this.time =  time; 
+        public void SetWeight(double weight) => this.weight = weight;
 
         //getters
-        public string GetDate() { return date; }
-        public string GetTime() { return time; }
-        public double GetWeight() { return weight; }
+        public string GetDate() 
+        { 
+            return date; 
+        }
+        public string GetTime() 
+        { 
+            return time; 
+        }
+        public double GetWeight()
+        { 
+            return weight; 
+        }
 
     }
 }

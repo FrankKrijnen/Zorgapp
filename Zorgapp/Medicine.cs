@@ -11,7 +11,13 @@ namespace Zorgapp
         private DateTime dosage;
 
         //constructor with 1 overload
-        public Medicine() { }
+        public Medicine() 
+        {
+            SetMedicineName(null);
+            SetDescription(null);
+            SetSort(null);
+            SetDosage(Convert.ToDateTime(null));
+        }
 
         public Medicine(string medicineName, string description, string sort, DateTime dosage) 
         {
@@ -23,15 +29,27 @@ namespace Zorgapp
 
         //methods
         //setters
-        public void SetMedicineName(string medicineName) { this.medicineName = medicineName; }
-        public void SetDescription(string description) { this.description = description; }
-        public void SetSort(string sort) { this.sort = sort; }
-        public void SetDosage(DateTime dosage) { this.dosage = dosage; }
+        public void SetMedicineName(string medicineName) => this.medicineName = medicineName; 
+        public void SetDescription(string description) => this.description = description; 
+        public void SetSort(string sort) => this.sort = sort; 
+        public void SetDosage(DateTime dosage) => this.dosage = dosage; 
 
         //getters
-        public string GetMedicineName() { return medicineName; }
-        public string GetDescription() { return description; }
-        public string GetSort() { return sort; }
-        public DateTime GetDosage() { return dosage; }
+        public string GetMedicineName()
+        {
+            return medicineName; 
+        }
+        public string GetDescription() 
+        { 
+            return description; 
+        }
+        public string GetSort() 
+        {
+            return sort; 
+        }
+        public DateTime GetDosage() 
+        { 
+            return dosage; 
+        }
     }
 }

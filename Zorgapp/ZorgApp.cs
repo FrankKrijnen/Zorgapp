@@ -9,7 +9,7 @@ namespace Zorgapp
     public partial class ZorgApp
     {
         //fields and properties
-        public Profile profile;
+        private Profile profile;
         private List<Medicine> medicineList;
         private List<WeightMeasurePoint> weightMeasurePointList;
         private List<string> medicineListOfToday;
@@ -39,7 +39,14 @@ namespace Zorgapp
         //methods
         /*all methods get called in displaymenu method
         except for the ones in the constructor*/
-        
+
+
+        //getters
+        public Profile GetProfile() 
+        {
+            return this.profile;
+        }
+
         //add static data to ZorgApp
         private void AddStartData()
         {
@@ -69,7 +76,7 @@ namespace Zorgapp
         }
 
         //show profile with field variable profile calls
-        public string ShowProfile()
+        private string ShowProfile()
         {
             //initialize local ConsoleTable to add column names
             ConsoleTable table = new ConsoleTable("Voornaam(1)", "Achternaam(2)", "Leeftijd(3)", "Gewicht(4)", "Lengte(5)", "BMI");
@@ -178,7 +185,7 @@ namespace Zorgapp
 
         //edit profile
         //todo add comments
-        public void EditProfile(Profile profile, int choice, string editValue = "") 
+        private void EditProfile(Profile profile, int choice, string editValue = "") 
         {
             switch (choice)
             {
@@ -205,19 +212,19 @@ namespace Zorgapp
 
         //edit medicine
         //todo add comments
-        private void EditMedicine(Medicine medicine, int userInput) 
+        private void EditMedicine(Medicine medicine, int choice, string EditValue = "") 
         {
 
-            switch (userInput)
+            switch (choice)
             {
                 case 1:
-                    medicine.SetMedicineName(Console.ReadLine());
+                    medicine.SetMedicineName(EditValue);
                     break;
                 case 2:
-                    medicine.SetDescription(Console.ReadLine());
+                    medicine.SetDescription(EditValue);
                     break;
                 case 3:
-                    medicine.SetSort(Console.ReadLine());
+                    medicine.SetSort(EditValue);
                     break;
                 case 4:
                     //medicine.SetDosage(Console.ReadLine());
@@ -230,18 +237,18 @@ namespace Zorgapp
 
         //edit weightmeasurepoint
         //todo add comments
-        private void EditWeightMeasurePoint(WeightMeasurePoint weightMeasurePoint, int userInput) 
+        private void EditWeightMeasurePoint(WeightMeasurePoint weightMeasurePoint, int choice, string EditValue = "") 
         {
-            switch (userInput)
+            switch (choice)
             {
                 case 1:
-                    weightMeasurePoint.SetDate(Console.ReadLine());
+                    weightMeasurePoint.SetDate(EditValue);
                     break;
                 case 2:
-                    weightMeasurePoint.SetTime(Console.ReadLine());
+                    weightMeasurePoint.SetTime(EditValue);
                     break;
                 case 3:
-                    weightMeasurePoint.SetWeight(Convert.ToDouble(Console.ReadLine()));
+                    weightMeasurePoint.SetWeight(Convert.ToDouble(EditValue));
                     break;
                 default:
                     break;

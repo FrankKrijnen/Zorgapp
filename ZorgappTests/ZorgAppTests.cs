@@ -23,23 +23,26 @@ namespace Zorgapp.Tests
         /// 
         /// </summary>
 
+
         [TestMethod()]
         public void EditProfile_ProfileData_ProfileEdited()
         {
-            
+
             //arrange
             ZorgApp zorgApp = new ZorgApp(true);
             string firstName = "TestVoornaam";
-            Profile profile = zorgApp.profile;
+            Profile profile = zorgApp.GetProfile();
             int choice = 1;
 
             //act
-            zorgApp.EditProfile(profile, choice, firstName);
+            //zorgApp.EditProfile(profile, choice, firstName);
+            PrivateObject obj = new PrivateObject(zorgApp);
+            obj.Invoke("EditProfile", profile, choice, firstName);
 
             //assert
             string actual = profile.GetFirstName();
             Assert.AreEqual(firstName, actual);
-            
+
         }
     }
 }

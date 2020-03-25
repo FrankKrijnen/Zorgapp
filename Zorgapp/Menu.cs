@@ -82,7 +82,7 @@ namespace Zorgapp
                         string medicineIdString = Console.ReadLine();
 
                         //break if checks fail
-                        if (!UserInputCheck(medicineIdString, medicineList, out int medicineId))
+                        if (!ChoiceCheck(medicineIdString, medicineList, out int medicineId))
                         {
                             break;
                         }
@@ -96,7 +96,7 @@ namespace Zorgapp
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4)");
 
                         //edit medicine with userinput based on number
-                        EditMedicineSwitch(medicine);
+                        EditMedicineSwitch(medicine, Console.ReadLine());
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
@@ -127,7 +127,7 @@ namespace Zorgapp
                         string weightIdString = Console.ReadLine();
 
                         //break if checks fail
-                        if (!UserInputCheck(weightIdString, weightMeasurePointList, out int weightId))
+                        if (!ChoiceCheck(weightIdString, weightMeasurePointList, out int weightId))
                         {
                             break;
                         }
@@ -141,7 +141,7 @@ namespace Zorgapp
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3)");
 
                         //edit weightMeasurePoint with userinput based on number
-                        EditWeightSwitch(weightMeasurePoint);
+                        EditWeightSwitch(weightMeasurePoint, Console.ReadLine());
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
