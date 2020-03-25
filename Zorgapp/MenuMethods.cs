@@ -42,7 +42,7 @@ namespace Zorgapp
 
             Console.Clear();
             Console.WriteLine("Bewerking is opgeslagen.\n\n");
-            Console.WriteLine(ShowProfile());
+            Console.WriteLine(ShowProfile(profile));
             return;
         }
 

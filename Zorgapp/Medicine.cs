@@ -2,7 +2,7 @@
 
 namespace Zorgapp
 {
-    class Medicine
+    public class Medicine
     {
         //fields and properties
         private string medicineName;

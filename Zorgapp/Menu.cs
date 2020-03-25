@@ -5,9 +5,7 @@ namespace Zorgapp
     //partial class ZorgApp #2
     partial class ZorgApp
     {
-        /*todo:
-         * create extra filter that checks the userinput for editing a value.
-           check on empty or unformatted strings and seperate userinput*/
+ 
         //display menu with numbers to choose from
         private void DisplayMenu()
         {
@@ -18,7 +16,7 @@ namespace Zorgapp
                 Console.Clear();
                 Console.WriteLine($"Datum: {DateTime.Now}\nWelkom in het menu");
                 Console.WriteLine("\nKies een nummer: " +
-                    "\n1) Profiel tonen." +
+                    "\n1) Profiellijst tonen." +
                     "\n2) Profiel bewerken" +
                     "\n3) Medicijnlijst tonen." +
                     "\n4) Medicijn bewerken." +
@@ -31,11 +29,11 @@ namespace Zorgapp
                 
                 switch (Console.ReadLine())
                 {
-                    //case 1: get readable string of profile with ShowProfile and print to console
+                    //case 1: get readable string of profileList with ShowProfile and print to console
                     case "1":
                         #region
-                        //show profile
-                        Console.WriteLine(ShowProfile());
+                        //show profilelist
+                        Console.WriteLine(ShowProfileList());
 
                         //return to menu on keypress
                         Console.WriteLine("\nDruk op enter om terug naar het menu te gaan.");
@@ -46,8 +44,25 @@ namespace Zorgapp
                     //case 2: edit profile attribute based on number of choices
                     case "2":
                         #region
+                        //show profile table with numbers to choose from
+                        Console.WriteLine(ShowProfileList());
+                        Console.WriteLine("\nMaak een keuze om te bewerken: ");
+
+                        //checks on userinput
+                        string profileIdString = Console.ReadLine();
+
+                        //break if checks fail
+                        if (!ChoiceCheck(profileIdString, profileList, out int profileId))
+                        {
+                            break;
+                        }
+
+                        //get profile from list
+                        Profile profile = profileList[profileId - 1];
+
                         //present user with number choices
-                        Console.WriteLine(ShowProfile());
+                        Console.Clear();
+                        Console.WriteLine(ShowProfile(profile));
                         Console.WriteLine("\nKies een nummer om te bewerken: (1, 2, 3, 4, 5)");
 
                         //edit profile with userinput based on number
@@ -74,7 +89,7 @@ namespace Zorgapp
                     //case 4: edit medicine attribute in medicineList based on number of choices
                     case "4":
                         #region
-                        //show weight table with numbers to choose from
+                        //show medicine table with numbers to choose from
                         Console.WriteLine(ShowMedicineList());
                         Console.WriteLine("\nMaak een keuze om te bewerken: ");
 

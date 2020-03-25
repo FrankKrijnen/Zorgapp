@@ -9,7 +9,7 @@ namespace Zorgapp
     public partial class ZorgApp
     {
         //fields and properties
-        private Profile profile;
+        private List<Profile> profileList;
         private List<Medicine> medicineList;
         private List<WeightMeasurePoint> weightMeasurePointList;
         private List<string> medicineListOfToday;
@@ -19,7 +19,7 @@ namespace Zorgapp
         {
             //initialize class object and lists
             //todo profile to list of profile objects
-            profile = new Profile();
+            profileList = new List<Profile>();
             medicineList = new List<Medicine>();
             weightMeasurePointList = new List<WeightMeasurePoint>();
             medicineListOfToday = new List<string>();
@@ -40,22 +40,38 @@ namespace Zorgapp
         /*all methods get called in displaymenu method
         except for the ones in the constructor*/
 
-
+        //todo add comments
         //getters
-        public Profile GetProfile() 
+        public Profile GetProfile(int index) 
         {
-            return this.profile;
+            return profileList[0];
+        }
+        public Medicine GetMedicine(int index)
+        {
+            return medicineList[index];
+        }
+        public WeightMeasurePoint GetWeightMeasurePoint(int index)
+        {
+            return weightMeasurePointList[index];
         }
 
         //add static data to ZorgApp
         private void AddStartData()
         {
-            //add Profile data through profile setters
-            profile.SetFirstName("Kees");
-            profile.SetLastName("Straaten");
-            profile.SetAge(34);
-            profile.SetWeight(68.5);
-            profile.SetLength(1.81);
+            //add Profile data to list as new initialized object
+            profileList.Add(new Profile(
+                "Kees",
+                "Straaten",
+                34,
+                68.52,
+                1.81));
+
+            profileList.Add(new Profile(
+                "Pieter",
+                "Post",
+                24,
+                75.36,
+                2.05));
 
             //add Medicine data to list as a new initialized object
             medicineList.Add(new Medicine(
@@ -76,34 +92,61 @@ namespace Zorgapp
         }
 
         //show profile with field variable profile calls
-        private string ShowProfile()
+        private string ShowProfile(Profile profile)
         {
             //initialize local ConsoleTable to add column names
-            ConsoleTable table = new ConsoleTable("Voornaam(1)", "Achternaam(2)", "Leeftijd(3)", "Gewicht(4)", "Lengte(5)", "BMI");
+            //ConsoleTable table = new ConsoleTable("Voornaam(1)", "Achternaam(2)", "Leeftijd(3)", "Gewicht(4)", "Lengte(5)", "BMI");
 
             //initialize local int to count iterations
-            int choice = 1;
-            table.Options.EnableCount = false;
+            //table.Options.EnableCount = false;
 
-            table.AddRow(
+            /*table.AddRow(
                     //choice,
                     profile.GetFirstName(),
                     profile.GetLastName(),
                     profile.GetAge(),
                     profile.GetWeight(),
                     profile.GetLength(),
-                    profile.GetBmi());
-            /*$"\n1) Voornaam: {profile.GetFirstName()}\n" +
+                    profile.GetBmi());*/
+
+            return 
+                $"\n1) Voornaam: {profile.GetFirstName()}\n" +
                 $"2) Achternaam: {profile.GetLastName()}\n" +
                 $"3) Leeftijd: {profile.GetAge()}\n" +
                 $"4) Gewicht: {profile.GetWeight()} Kg\n" +
                 $"5) Lengte: {profile.GetLength()} M\n" +
-                $"   BMI: {profile.GetBmi()}";*/
+                $"   BMI: {profile.GetBmi()}";
+
+            //return local ConsoleTable as string
+            //return table.ToString();
+        }
+
+        //show profile list with loop variable profile calls in foreachloop
+        private string ShowProfileList()
+        {
+            //initialize local ConsoleTable to add column names
+            ConsoleTable table = new ConsoleTable("#", "Voornaam", "Achternaam", "Leeftijd", "Gewicht", "Lengte", "BMI");
+
+            //initialize local int to count iterations
+            int choice = 1;
+
+            table.Options.EnableCount = false;
+            foreach (Profile profile in profileList)
+            {
+                table.AddRow(
+                    choice,
+                    profile.GetFirstName(),
+                    profile.GetLastName(),
+                    profile.GetAge(),
+                    profile.GetWeight(),
+                    profile.GetLength(),
+                    profile.GetBmi());
+            }
+            
 
             //return local ConsoleTable as string
             return table.ToString();
         }
-
         //show medicine with parameter medicine calls
         private string ShowMedicine(Medicine medicine)
         {
@@ -160,7 +203,7 @@ namespace Zorgapp
         private string ShowWeightMeasurePointList()
         {
             //initialize local ConsoleTable to add column names
-            ConsoleTable table = new ConsoleTable("Keuze", "Datum", "Tijd", "Gewicht");
+            ConsoleTable table = new ConsoleTable("#", "Datum", "Tijd", "Gewicht");
             
             //initialize local int to count iterations
             int choice = 1;
@@ -292,7 +335,7 @@ namespace Zorgapp
         private string ShowAllData() 
         {
             return
-                $"\nProfiel:\n{ShowProfile()}\n" +
+                $"\nProfiel:\n{ShowProfileList()}\n" +
                 $"\nMedicijnen:\n{ShowMedicineList()}" +
                 $"\nGewichttabel:\n{ShowWeightMeasurePointList()}";
         }

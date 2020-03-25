@@ -1,6 +1,6 @@
 ﻿namespace Zorgapp
 {
-    class WeightMeasurePoint
+    public class WeightMeasurePoint
     {
         //fields and properties
         private string date;
