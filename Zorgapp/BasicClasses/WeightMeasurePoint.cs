@@ -1,4 +1,4 @@
-﻿namespace Zorgapp
+﻿namespace Zorgapp.BasicClasses
 {
     public class WeightMeasurePoint
     {
@@ -18,7 +18,7 @@
         //methods
         //setters
         public void SetDate(string date) => this.date = date; 
-        public void SetTime(string time) => this.time =  time; 
+        public void SetTime(string time) => this.time = time; 
         public void SetWeight(double weight) => this.weight = weight;
 
         //getters

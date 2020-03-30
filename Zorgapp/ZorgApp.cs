@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Zorgapp.BasicClasses;
 
 namespace Zorgapp
 {
@@ -14,21 +15,23 @@ namespace Zorgapp
         private List<WeightMeasurePoint> weightMeasurePointList;
         private List<string> medicineListOfToday;
 
+        //todo also put sentences in dictionary for english language
+        
+
         //constructor
         public ZorgApp(bool testing = false)
         {
             //initialize class object and lists
-            //todo profile to list of profile objects
             profileList = new List<Profile>();
             medicineList = new List<Medicine>();
             weightMeasurePointList = new List<WeightMeasurePoint>();
             medicineListOfToday = new List<string>();
+            languageDictionary = new Dictionary<string, string>();
 
             //call startup methods
             AddStartData();
             //StartAlarm();
 
-            //todo change output from show methods to ConsoleTable's
             if (testing)
             {
                 return;
@@ -58,6 +61,9 @@ namespace Zorgapp
         //add static data to ZorgApp
         private void AddStartData()
         {
+            //add language data to dictionary as new initialized object
+            FillLanguageDictionary();
+
             //add Profile data to list as new initialized object
             profileList.Add(new Profile(
                 "Kees",
@@ -91,41 +97,43 @@ namespace Zorgapp
             weightMeasurePointList.Add(new WeightMeasurePoint("22-02-2011", "18:35", 63.11));
         }
 
+        //returns translated word or sentence
+        private string TransLang(string word)
+        {
+            if (language == "EN")
+            {
+                if (languageDictionary.TryGetValue(word, out string value))
+                {
+                    return value;
+                }
+            }
+            return word;
+        }
+
         //show profile with field variable profile calls
         private string ShowProfile(Profile profile)
         {
-            //initialize local ConsoleTable to add column names
-            //ConsoleTable table = new ConsoleTable("Voornaam(1)", "Achternaam(2)", "Leeftijd(3)", "Gewicht(4)", "Lengte(5)", "BMI");
-
-            //initialize local int to count iterations
-            //table.Options.EnableCount = false;
-
-            /*table.AddRow(
-                    //choice,
-                    profile.GetFirstName(),
-                    profile.GetLastName(),
-                    profile.GetAge(),
-                    profile.GetWeight(),
-                    profile.GetLength(),
-                    profile.GetBmi());*/
-
-            return 
-                $"\n1) Voornaam: {profile.GetFirstName()}\n" +
-                $"2) Achternaam: {profile.GetLastName()}\n" +
-                $"3) Leeftijd: {profile.GetAge()}\n" +
-                $"4) Gewicht: {profile.GetWeight()} Kg\n" +
-                $"5) Lengte: {profile.GetLength()} M\n" +
+            return
+                $"\n1) {TransLang("Voornaam")}: {profile.GetFirstName()}\n" +
+                $"2) {TransLang("Achternaam")}: {profile.GetLastName()}\n" +
+                $"3) {TransLang("Leeftijd")}: {profile.GetAge()}\n" +
+                $"4) {TransLang("Gewicht")}: {profile.GetWeight()} Kg\n" +
+                $"5) {TransLang("Lengte")}: {profile.GetLength()} M\n" +
                 $"   BMI: {profile.GetBmi()}";
 
-            //return local ConsoleTable as string
-            //return table.ToString();
         }
 
         //show profile list with loop variable profile calls in foreachloop
         private string ShowProfileList()
         {
             //initialize local ConsoleTable to add column names
-            ConsoleTable table = new ConsoleTable("#", "Voornaam", "Achternaam", "Leeftijd", "Gewicht", "Lengte", "BMI");
+            ConsoleTable table = new ConsoleTable("#", 
+                TransLang("Voornaam"), 
+                TransLang("Achternaam"), 
+                TransLang("Leeftijd"), 
+                TransLang("Gewicht"), 
+                TransLang("Lengte"),
+                "BMI");
 
             //initialize local int to count iterations
             int choice = 1;
@@ -141,6 +149,9 @@ namespace Zorgapp
                     profile.GetWeight(),
                     profile.GetLength(),
                     profile.GetBmi());
+
+                //increment local int choice
+                choice++;
             }
             
 
@@ -152,10 +163,10 @@ namespace Zorgapp
         {
             return
                  "\n\n" +
-                 "\n1)Medicijn: " + medicine.GetMedicineName() +
-                 "\n2)Beschrijving: " + medicine.GetDescription() +
-                 "\n3)Soort: " + medicine.GetSort() +
-                 "\n4)Dosering: " + medicine.GetDosage();
+                 $"\n1){TransLang("Medicijn")}: " + medicine.GetMedicineName() +
+                 $"\n2){TransLang("Beschrijving")}: " + medicine.GetDescription() +
+                 $"\n3){TransLang("Soort")}: " + medicine.GetSort() +
+                 $"\n4){TransLang("Dosering")}: " + medicine.GetDosage();
 
         }
 
@@ -163,7 +174,11 @@ namespace Zorgapp
         private string ShowMedicineList()
         {
             //initialize local ConsoleTable to add column names
-            ConsoleTable table = new ConsoleTable("#", "Naam", "Beschrijving", "Soort", "Dosering");
+            ConsoleTable table = new ConsoleTable("#",
+                TransLang("Medicijn"),
+                TransLang("Beschrijving"),
+                TransLang("Soort"),
+                TransLang("Dosering"));
 
             //initialize local int to count iterations
             int choice = 1;
@@ -178,7 +193,7 @@ namespace Zorgapp
                 table.AddRow(
                     choice,
                     medicine.GetMedicineName(),
-                    "Details na keuze",
+                    TransLang("Details na keuze"),
                     medicine.GetSort(),
                     medicine.GetDosage());
 
@@ -194,16 +209,19 @@ namespace Zorgapp
         private string ShowWeightMeasurePoint(WeightMeasurePoint weightMeasurePointList)
         {
             return
-                    "\n1)Datum: " + weightMeasurePointList.GetDate() +
-                    "\n2)Tijd: " + weightMeasurePointList.GetTime() +
-                    "\n3)Gewicht: " + weightMeasurePointList.GetWeight();
+                    $"\n1){TransLang("")}Datum: " + weightMeasurePointList.GetDate() +
+                    $"\n2){TransLang("Tijd")}: " + weightMeasurePointList.GetTime() +
+                    $"\n3){TransLang("Gewicht")}: " + weightMeasurePointList.GetWeight();
         }
 
         //show data table with loop variable weightMeasurePoint calls in foreachloop
         private string ShowWeightMeasurePointList()
         {
             //initialize local ConsoleTable to add column names
-            ConsoleTable table = new ConsoleTable("#", "Datum", "Tijd", "Gewicht");
+            ConsoleTable table = new ConsoleTable("#",
+                TransLang("Datum"),
+                TransLang("Tijd"),
+                TransLang("Gewicht"));
             
             //initialize local int to count iterations
             int choice = 1;
@@ -317,15 +335,12 @@ namespace Zorgapp
             foreach (Medicine medicine in medicineList)
             {
                 //compare datetime from medicine intake with current datetime
-                if (medicine.GetDosage().CompareTo(DateTime.Now) < 1)
+                if (medicine.GetDosage().CompareTo(DateTime.Now) < 1 && !medicineListOfToday.Contains(medicine.GetMedicineName()))
                 {
                     //check in medicineListOfToday for medicine name
-                    if (!medicineListOfToday.Contains(medicine.GetMedicineName()))
-                    {
-                        //add medicine name to medicineListOfToday
-                        medicineListOfToday.Add(medicine.GetMedicineName());
-                        Console.WriteLine(medicine.GetMedicineName());
-                    }
+                    //add medicine name to medicineListOfToday
+                    medicineListOfToday.Add(medicine.GetMedicineName());
+                    Console.WriteLine(medicine.GetMedicineName());
                 }
             }
         }
@@ -335,9 +350,9 @@ namespace Zorgapp
         private string ShowAllData() 
         {
             return
-                $"\nProfiel:\n{ShowProfileList()}\n" +
-                $"\nMedicijnen:\n{ShowMedicineList()}" +
-                $"\nGewichttabel:\n{ShowWeightMeasurePointList()}";
+                $"\n{TransLang("Profielen")}:\n{ShowProfileList()}\n" +
+                $"\n{TransLang("Medicijnen")}:\n{ShowMedicineList()}" +
+                $"\n{TransLang("Gewichttabel")}:\n{ShowWeightMeasurePointList()}";
         }
     }
 }

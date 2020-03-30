@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zorgapp;
+using Zorgapp.BasicClasses;
 
 namespace Zorgapp.Tests
 {
@@ -27,9 +28,8 @@ namespace Zorgapp.Tests
         private const string editMedicine = "EditMedicine";
         private const string editWeightMeasurePoint = "EditWeightMeasurePoint";
 
-        private const int firstNameChoice = 1;
-        private const int medicineNameChoice = 1;
-        private const int dateChoice = 1;
+        private const int firstNameChoice = 1, medicineNameChoice = 1, dateChoice = 1;
+
 
         [TestMethod()]
         public void EditProfile_ProfileData_ProfileEdited()

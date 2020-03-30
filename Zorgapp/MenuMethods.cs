@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zorgapp.BasicClasses;
 
 namespace Zorgapp
 {
@@ -15,35 +16,34 @@ namespace Zorgapp
             {
 
                 case "1":
-                    Console.WriteLine("Voer uw voornaam in: ");
+                    Console.WriteLine(TransLang("Voer uw voornaam in") + ": ");
                     EditProfile(profile, 1, Console.ReadLine());
                     break;
                 case "2":
-                    Console.WriteLine("Voer uw achternaam in: ");
+                    Console.WriteLine(TransLang("Voer uw achternaam in") + ": ");
                     EditProfile(profile, 2, Console.ReadLine());
                     break;
                 case "3":
-                    Console.WriteLine("Voer uw leeftijd in: ");
+                    Console.WriteLine(TransLang("Voer uw leeftijd in") + ": ");
                     EditProfile(profile, 3, Console.ReadLine());
                     break;
                 case "4":
-                    Console.WriteLine("Voer uw gewicht in met een comma: ");
+                    Console.WriteLine(TransLang("Voer uw gewicht in met een comma") + ": ");
                     EditProfile(profile, 4, Console.ReadLine());
                     break;
                 case "5":
-                    Console.WriteLine("Voer uw lengte in met een comma: ");
+                    Console.WriteLine(TransLang("Voer uw lengte in met een comma") + ": ");
                     EditProfile(profile, 5, Console.ReadLine());
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Bewerking is NIET opgeslagen.\n\n");
+                    Console.WriteLine(TransLang("Bewerking is NIET opgeslagen") + ".\n\n");
                     return;
             }
 
             Console.Clear();
-            Console.WriteLine("Bewerking is opgeslagen.\n\n");
+            Console.WriteLine(TransLang("Bewerking is opgeslagen")+ ".\n\n");
             Console.WriteLine(ShowProfile(profile));
-            return;
         }
 
         private void EditMedicineSwitch(Medicine medicine, string choice)
@@ -52,31 +52,30 @@ namespace Zorgapp
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("Voer de medicijnnaam in: ");
+                    Console.WriteLine(TransLang("Voer de medicijnnaam in") + ": ");
                     EditMedicine(medicine, 1, Console.ReadLine());
                     break;
                 case "2":
-                    Console.WriteLine("Voer de beschrijving in: ");
+                    Console.WriteLine(TransLang("Voer de beschrijving in") + ": ");
                     EditMedicine(medicine, 2, Console.ReadLine());
                     break;
                 case "3":
-                    Console.WriteLine("Voer de soort in: ");
+                    Console.WriteLine(TransLang("Voer de soort in") + ": ");
                     EditMedicine(medicine, 3, Console.ReadLine());
                     break;
                 case "4":
-                    Console.WriteLine("Voer de dosering in: ");
+                    Console.WriteLine(TransLang("Voer de dosering in" ) + ": ");
                     EditMedicine(medicine, 4, Console.ReadLine());
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Bewerking is NIET opgeslagen.\n\n");
+                    Console.WriteLine(TransLang("Bewerking is NIET opgeslagen") + ".\n\n");
                     return;
             }
 
             Console.Clear();
-            Console.WriteLine("Bewerking is opgeslagen.\n\n");
+            Console.WriteLine(TransLang("Bewerking is opgeslagen") + ".\n\n");
             Console.WriteLine(ShowMedicine(medicine));
-            return;
         }
 
         private void EditWeightSwitch(WeightMeasurePoint weightMeasurePoint, string choice)
@@ -86,27 +85,26 @@ namespace Zorgapp
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("Voer de datum in: ");
+                    Console.WriteLine(TransLang("Voer de datum in") + ": ");
                     EditWeightMeasurePoint(weightMeasurePoint, 1, Console.ReadLine());
                     break;
                 case "2":
-                    Console.WriteLine("Voer de tijd in: ");
+                    Console.WriteLine(TransLang("Voer de tijd in") + ": ");
                     EditWeightMeasurePoint(weightMeasurePoint, 2, Console.ReadLine());
                     break;
                 case "3":
-                    Console.WriteLine("Voer uw gewicht in met een comma: ");
+                    Console.WriteLine(TransLang("Voer uw gewicht in met een comma") + ": ");
                     EditWeightMeasurePoint(weightMeasurePoint, 3, Console.ReadLine());
                     break;
                 default:
                     Console.Clear();
-                    Console.WriteLine("Bewerking is NIET opgeslagen.\n\n");
+                    Console.WriteLine(TransLang("Bewerking is NIET opgeslagen") + ".\n\n");
                     return;
             }
 
             Console.Clear();
-            Console.WriteLine("Bewerking is opgeslagen.\n\n");
+            Console.WriteLine(TransLang("Bewerking is opgeslagen") + ".\n\n");
             Console.WriteLine(ShowWeightMeasurePoint(weightMeasurePoint));
-            return;
         }
 
         private bool ChoiceCheck<T>(string idString, List<T> list, out int id) 
